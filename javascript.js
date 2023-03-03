@@ -33,14 +33,25 @@ function createNewSketch(numberOfSquares) {
     containerDiv.style.alignItems = 'center';
     containerDiv.style.justifyContent = 'center';
     containerDiv.style.margin = 'auto';
+    containerDiv.style.borderStyle = 'solid';
 
     for (let index = 0; index < (numberOfSquares * numberOfSquares); index++) {
         const squareDiv = document.createElement('div');
         squareDiv.style.backgroundColor = 'white';
         squareDiv.style.width = `${sketchSize / numberOfSquares}px`;
         squareDiv.style.height = `${sketchSize / numberOfSquares}px`;
+        let passes = 0;
         squareDiv.addEventListener('mouseover', (e) => {
-            e.target.style.backgroundColor = 'black';
+            // e.target.style.backgroundColor = 'black';
+            console.log(`mouse over: ${e.target.id}`);
+            
+            if (passes < 10) {
+                let blackerColor = `rgba(0, 0, 0, ${0.1 * (passes + 1)})`;
+                e.target.style.backgroundColor = blackerColor;
+                passes++;
+            } else {
+                e.target.style.backgroundColor = 'black';
+            }
         });
         containerDiv.appendChild(squareDiv);
     }
